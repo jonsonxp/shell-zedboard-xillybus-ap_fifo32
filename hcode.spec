@@ -10,7 +10,7 @@
     "Qian ZHAO": "cho@arch.cs.kumamoto-u.ac.jp"
   },
   "source": {
-    "git": "https://github.com/jonsonxp/shell-zybo-xillybus-ap_fifo32.git",
+    "git": "https://github.com/jonsonxp/shell-zedboard-xillybus-ap_fifo32.git",
     "tag": "0.1.1"
   },
   "hardware": {
