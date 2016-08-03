@@ -1,0 +1,81 @@
+#!/bin/bash
+PROGNAME=$(basename $0)
+VERSION="0.1.1"
+
+usage() {
+  echo "usage: ./configure" 1>&2
+  echo "Options:" 1>&2
+  echo "    -clk NUMBER           : clock frequency in MHz (100, 125, or 150)." 1>&2
+  echo "    -reference STRING     : The reference of code of ip in shell." 1>&2
+  exit 1
+}
+
+for i in "$@"
+do
+case $i in
+	    '-h'|'--help' )
+            usage
+            exit 1
+        ;;
+        '--version' )
+            echo $VERSION
+            exit 1
+            ;;
+        -reference)
+        	if [ -z "$2" ]; then
+        		echo "option requires an argument -- $1" 1>&2
+        		exit 1
+        	fi
+        	REFERENCE=$2
+        	shift 2
+        	;;
+        -clk)
+            if [ -z "$2" ]; then
+                echo "option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            CLK=$2
+            shift 2
+            ;;      
+        -*)
+		shift 2
+        ;;
+        *)
+        ;;
+esac
+done
+
+if [ -z $CLK ]; then
+    echo "$PROGNAME: too few arguments" 1>&2
+    usage
+    exit 1
+fi
+
+case $CLKPERIOD in
+	150)
+	CLKNUM=3
+	;;
+	125)
+	CLKNUM=2
+	;;
+	100)
+	CLKNUM=1
+	;;
+	*)
+    echo "Unsupported clock. Only clock frequency (MHz) listed below is supported:"
+    echo "100, 125, or 150"
+	exit
+	;;
+esac
+
+sed -i "/progma_ip_clk/c\assign ip_clk = user_clk_$CLK;//progma_ip_clk" ./verilog/src/xillydemo.v
+echo "Updated the clock in ./verilog/src/xillydemo.v" 1>&2
+
+sed -i "/progma_clk_shell_to_ip/c\set_false_path -from [get_clocks clk_fpga_1] -to [get_clocks clk_out"$CLKNUM"_clk_wiz_0]; #progma_clk_shell_to_ip" ./vivado-essentials/xillydemo.xdc
+sed -i "/progma_clk_ip_to_shell/c\set_false_path -from [get_clocks clk_out"$CLKNUM"_clk_wiz_0] -to [get_clocks clk_fpga_1]; #progma_clk_ip_to_shell" ./vivado-essentials/xillydemo.xdc
+echo "Updated the clock in constrain file ./vivado-essentials/xillydemo.xdc" 1>&2
+
+if [ "$REFERENCE" ]; then
+	sed -i "/progma_ip_wrapper/c\ $REFERENCE //progma_ip_wrapper" ./verilog/src/xillydemo.v
+	echo "Updated the IP reference in ./verilog/src/xillydemo.v" 1>&2
+fi
