@@ -52,10 +52,10 @@ if [ -z $CLK ]; then
 fi
 
 case $CLKPERIOD in
-	150)
+	200)
 	CLKNUM=3
 	;;
-	125)
+	150)
 	CLKNUM=2
 	;;
 	100)
@@ -63,7 +63,7 @@ case $CLKPERIOD in
 	;;
 	*)
     echo "Unsupported clock. Only clock frequency (MHz) listed below is supported:"
-    echo "100, 125, or 150"
+    echo "100, 150, or 200"
 	exit
 	;;
 esac
