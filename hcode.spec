@@ -1,8 +1,8 @@
 {
-  "name": "shell-zybo-xillybus-ap_fifo32",
+  "name": "shell-zedboard-xillybus-ap_fifo32",
   "type": "shell",
   "version": "0.1.1",
-  "summary": "A hCODE shell based on xillinux-eval-zybo-1.3c module.",
+  "summary": "An hCODE shell based on xillinux-eval-zedboard-1.3c module.",
   "description": "Developed in Computer Arch. Lab@Kumamoto University, Japan.",
   "homepage": "http://arch.cs.kumamoto-u.ac.jp/hcode",
   "license": "MIT",
@@ -14,8 +14,8 @@
     "tag": "0.1.1"
   },
   "hardware": {
-    "board": "zybo",
-    "device": "xc7z010clg400-1"
+    "board": "zedboard",
+    "device": "xc7z020clg484-1"
   },
   "interface": {
     "host": {
