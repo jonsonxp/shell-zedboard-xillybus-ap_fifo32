@@ -324,7 +324,7 @@ module xillydemo
    assign  user_r_read_32_eof = 0;
    
    assign ip_rst_n = ~(!user_w_write_32_open && !user_r_read_32_open);
-   ip_loopback ip_loopback_0 (.ap_clk(ip_clk), .ap_rst(~ip_rst_n), .in_V_dout(in_r_dout), .in_V_empty_n(in_r_empty_n), .in_V_read(in_r_read), .out_V_din(out_r_din), .out_V_full_n(!out_r_full), .out_V_write(out_r_write)); //progma_ip_wrapper
+   ip_loopback ip_loopback_0 (.ap_clk(ip_clk), .ap_rst(~ip_rst_n), .in_V_V_dout(in_r_dout), .in_V_V_empty_n(in_r_empty_n), .in_V_V_read(in_r_read), .out_V_V_din(out_r_din), .out_V_V_full_n(!out_r_full), .out_V_V_write(out_r_write)); //progma_ip_wrapper
 
    
    // 8-bit loopback
