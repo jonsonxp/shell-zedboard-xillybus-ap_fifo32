@@ -259,6 +259,11 @@ module xillydemo
    assign  user_r_mem_8_eof = 0;
    assign  user_w_mem_8_full = 0;
 
+
+   wire [8*32-1:0] memarray;
+   genvar i;
+   for (i=0; i<8; i=i+1) assign memarray[32*i+31:32*i] = demoarray[i];
+
    wire ip_clk;
    wire ip_rst_n;
    wire user_clk_100;
